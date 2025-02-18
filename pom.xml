@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>FlipFin-Back</artifactId>
+	<artifactId>FlipFin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>FlipFin-Back</name>
+	<name>FlipFin</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

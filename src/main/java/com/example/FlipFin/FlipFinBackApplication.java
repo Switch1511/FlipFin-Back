@@ -1,13 +1,13 @@
-package com.example.FlipFin_Back;
+package com.example.FlipFin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FlipFinBackApplication {
+public class FlipFinApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FlipFinBackApplication.class, args);
+		SpringApplication.run(FlipFinApplication.class, args);
 	}
 
 }

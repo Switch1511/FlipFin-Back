@@ -1,10 +1,10 @@
-package com.example.FlipFin_Back;
+package com.example.FlipFin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FlipFinBackApplicationTests {
+class FlipFinApplicationTests {
 
 	@Test
 	void contextLoads() {

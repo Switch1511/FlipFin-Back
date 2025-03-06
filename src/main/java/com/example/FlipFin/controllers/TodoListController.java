@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/teste")
+@RequestMapping("/todolist")
 public class TodoListController {
 
     private List<Task> tasks = new ArrayList<>();
@@ -23,5 +23,12 @@ public class TodoListController {
     @PostMapping
     public void createTask(@RequestBody Task task) {
         tasks.add(task);
+    }
+
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
+        tasks.removeIf(task -> task.id().equals(taskId));
+
+        return ResponseEntity.noContent().build();
     }
 }

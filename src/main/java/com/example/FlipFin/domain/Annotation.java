@@ -1,4 +1,4 @@
 package com.example.FlipFin.domain;
 
-public record Anotation(Long id, String description) {
+public record Annotation(Long id, String title, String description) {
 }

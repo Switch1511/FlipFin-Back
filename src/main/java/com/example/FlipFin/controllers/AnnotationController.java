@@ -13,7 +13,7 @@ public class AnnotationController {
     private List<Annotation> annotations = new ArrayList<>();
 
     @GetMapping
-    public ResponseEntity<List<Annotation>> listarAnnotations() {
+    public ResponseEntity<List<Annotation>> listAnnotations() {
         return ResponseEntity.ok(annotations);
     }
 
@@ -25,7 +25,6 @@ public class AnnotationController {
     @DeleteMapping("/{annotationId}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long annotationId) {
         annotations.removeIf(task -> task.id().equals(annotationId));
-
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,5 @@
 CREATE TABLE annotation (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL
+    description VARCHAR(255) NOT NULL
 );

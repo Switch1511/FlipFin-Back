@@ -1,49 +1,71 @@
 package com.example.FlipFin.controllers;
 
 
-import com.example.FlipFin.controllers.dto.taskDescription;
-import com.example.FlipFin.domain.Task;
+
+import com.example.FlipFin.controllers.dto.TodolistDto;
+import com.example.FlipFin.model.Todolist;
+import com.example.FlipFin.repositories.TodolistRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 
 @RestController
 @RequestMapping("/todolist")
 public class TodoListController {
+    private List<Todolist> todolist = new ArrayList<>();
 
-    private List<Task> tasks = new ArrayList<>();
+    @Autowired
+    TodolistRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<Task>> listarTasks() {
-        return ResponseEntity.ok(tasks);
+    public ResponseEntity listTodolist() {
+        List<Todolist> listTodolist = repository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(listTodolist);
     }
 
     @PostMapping
-    public void createTask(@RequestBody Task task) {
-        tasks.add(task);
+    public ResponseEntity save(@RequestBody TodolistDto dto) {
+        var todolist = new Todolist();
+        BeanUtils.copyProperties(dto, todolist);
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(todolist));
     }
 
-    @DeleteMapping("/{taskId}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
-        tasks.removeIf(task -> task.id().equals(taskId));
-
-        return ResponseEntity.noContent().build();
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable(value = "id") Integer id) {
+        Optional<Todolist> todolist = repository.findById(id);
+        if(todolist.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(todolist.get());
     }
 
-    @PutMapping
-    public ResponseEntity<Void> updateTask(@PathVariable Long taskId,
-                                           @RequestBody taskDescription dto){
-        tasks = tasks.stream()
-                .map(task -> {
-                    if (task.id().equals(taskId)) {
-                        return new Task(task.id(), dto.description());
-                    }
-                    return task;
-                }).collect(Collectors.toCollection(ArrayList::new));
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
+        Optional<Todolist> todolist = repository.findById(id);
+        if(todolist.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+        }
+        repository.delete(todolist.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Card deleted");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable(value = "id") Integer id, @RequestBody TodolistDto dto) {
+        Optional<Todolist> todolist = repository.findById(id);
+        if(todolist.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+        }
+        var todolistModel = todolist.get();
+        BeanUtils.copyProperties(dto, todolistModel);
+        return ResponseEntity.status(HttpStatus.OK).body(repository.save(todolistModel));
     }
 }

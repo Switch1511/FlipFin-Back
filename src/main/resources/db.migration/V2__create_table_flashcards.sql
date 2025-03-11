@@ -1,0 +1,19 @@
+CREATE TABLE baralhos (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    novo INT NOT NULL DEFAULT 0,
+    revisar INT NOT NULL DEFAULT 0,
+    aprender INT NOT NULL DEFAULT 0,
+    usuario_id BIGINT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE cartas (
+    id BIGSERIAL PRIMARY KEY,
+    frente TEXT NOT NULL,
+    verso TEXT NOT NULL,
+    baralho_id BIGINT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (baralho_id) REFERENCES baralhos(id) ON DELETE CASCADE
+);

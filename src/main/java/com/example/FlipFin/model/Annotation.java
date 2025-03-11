@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Table(name = "annotation")
 public class Annotation {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

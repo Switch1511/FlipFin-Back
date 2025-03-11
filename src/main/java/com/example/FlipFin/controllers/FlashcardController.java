@@ -1,6 +1,5 @@
 package com.example.FlipFin.controllers;
 
-import com.example.FlipFin.domain.Annotation;
 import com.example.FlipFin.domain.Flashcard;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
